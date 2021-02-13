@@ -1,0 +1,230 @@
+[v-cloak]{
+  display: none;
+}
+button.btn.btn-outline-primary.remove-btn.btn-view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.view-checked-task {
+  color: gray;
+  text-decoration: line-through;
+}
+
+  @mixin standard-font {
+    /*font-family: 'Pangolin', cursive;*/
+    font-family: 'Cinzel', 'Cormorant Infant', serif;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    color: #CEDEF2;
+    line-height: 1.5;
+  }
+  @mixin font-for-task {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 1rem;
+
+  }
+
+  .btn-view {
+    border-color: #CEDEF2;
+    color: white;
+    background-color: #0455BF;
+    -webkit-user-drag: none;
+    img {
+      user-select: none;
+      -webkit-user-drag: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+
+    &:hover {
+      background-color: #0468BF;
+      border-color: #f8f8fa;
+    }
+
+    &:not(:disabled):not(.disabled):active {
+      background-color: #3890dc;
+      border-color: #CEDEF2;
+
+      &:focus {
+        box-shadow: 0 0 0 0.1rem rgb(4, 104, 191);
+      }
+    }
+
+
+  }
+
+
+  .custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, .25);
+  }
+
+  body {
+    @include standard-font;
+    background-color: #e8d2d0;
+  }
+
+    .header {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+
+      h1 {
+        text-align: center;
+        font-weight: 700;
+        color: #044277;
+        margin-bottom: 0;
+      }
+    }
+
+    .container {
+      border-radius: 15px;
+      background-color: #044277;
+      box-shadow: 0 0 0.5em #214d86;
+      padding-bottom: 16px;
+      padding-top: 16px;
+
+      .tasks-bord {
+        .create-task {
+          background-color: transparent;
+          border: 2px solid #4389c5;
+          border-radius: .25rem;
+          color: #ffffff;
+          outline-color: transparent;
+          @include font-for-task;
+
+          &:focus {
+            border: 2px solid #ffffff;
+          }
+
+        }
+
+        ::placeholder {
+          color: #CEDEF2;
+          font-size: 1rem;
+          @include standard-font;
+        }
+
+        .box-tasks {
+          background-color: transparent;
+
+          .task.list-group-item {
+            border-bottom: 1px solid #4389c5;
+          }
+
+          .task {
+            &:first-of-type {
+              border-top: none;
+            }
+
+            background-color: transparent;
+            padding-left: 0;
+            padding-right: 0;
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+            padding-bottom: 1rem;
+
+            .input-group-prepend {
+              .custom-control-label::before {
+                width: 2rem;
+                height: 2rem;
+                position: absolute;
+                top: 0;
+                background-color: transparent;
+              }
+
+              .custom-control-label::after {
+                width: 35px;
+                height: 35px;
+                position: relative;
+                top: 0;
+                background-color: #0455BF;
+                border-radius: .25rem;
+                border: 1px solid white;
+
+              }
+
+              .custom-control-label:hover:after {
+                background-color: #0468BF;
+              }
+            }
+
+            .parent-container-for-textarea {
+              position: relative;
+              min-width: 1px;
+              margin: 0 4px 0 -20px;
+              width: 100%;
+              @include font-for-task;
+
+              .autogrow-textarea-mirror.form-control {
+                background: none;
+                border: 0;
+                min-height: 33px;
+                resize: none;
+                word-wrap: break-word;
+                white-space: pre-wrap;
+                height: auto;
+                visibility: hidden;
+                box-sizing: border-box;
+                line-height: 32px;
+                overflow: hidden;
+                vertical-align: top;
+                width: 100%;
+                color: white;
+                padding: 0 0.3rem;
+              }
+
+              textarea.form-control.text-task {
+                overflow: hidden;
+                resize: none;
+                vertical-align: top;
+                height: 100%;
+                left: 0;
+                position: absolute;
+                top: 0;
+                width: 100%;
+                background: none;
+                border: 1px solid transparent;
+                min-height: 33px;
+                line-height: 32px;
+                padding: 0 0.3rem;
+                color: #59c9ff;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                white-space: pre-wrap;
+
+                &:focus {
+                  border: 1px solid #ced4da;
+                  box-shadow: none;
+                }
+
+                &.checkedText {
+                  color: #abb0bf;
+                  text-decoration: line-through;
+
+                }
+              }
+            }
+
+            .input-group-append {
+              height: 35px;
+
+              .remove-btn {
+                border-top-left-radius: .25rem;
+                border-bottom-left-radius: .25rem;
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+  @media (min-width: 540px) {
+    body .container {
+      border-radius: 0.25rem;
+    }
+  }

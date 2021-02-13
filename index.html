@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
+    <!-- Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>My Todo List</title>
+</head>
+<body>
+<div id="app" v-cloak>
+    <div class="header"><h1 data-i18n="title">To Do List</h1></div>
+    <div class="container">
+       <div class="tasks-bord">
+
+           <input
+                       id="input-task"
+                       class="create-task w-100 p-2"
+                       type="text"
+                       data-i18n="inputNew"
+                       placeholder="Create new task"
+                       v-model.trim="newTask"
+                       @keyup.enter="saveNewTask"
+               >
+               <div class="container-action-btn mt-3 mb-3 d-flex justify-content-center">
+                   <button type="button" data-i18n="btnAdd" class="btn btn-outline-primary btn-view mr-1 btn-add-task" @click="saveNewTask">
+                       Add
+                   </button>
+                   <button type="button" data-i18n="btnDelChecked" class="btn btn-outline-primary btn-view btn-clear-finished"
+                           @click="removeCompleted" v-show="todos.length > 0">Delete completed
+                   </button>
+               </div>
+
+               <ul class="list-group list-group-flush box-tasks">
+                   <h2 v-show="! active.length" data-i18n="messageAllDone">No new tasks</h2>
+                   <li class="task list-group-item"
+                       v-if="! task.statusChecked"
+                       v-for="(task, index) in todos"
+                       :key="task.id"
+                       v-bind:id="task.id"
+                       >
+                       <div class="input-group-prepend">
+                           <div class="custom-control custom-checkbox">
+                               <input type="checkbox" class="checkbox custom-control-input" :id="task.id"  @change="toggleStatusChecked(task, index)">
+                               <label class="custom-control-label label-checkbox" :for="task.id" @click="toggleStatusChecked(task, index)"></label>
+                           </div>
+                       </div>
+                       <div class="parent-container-for-textarea">
+                           <textarea
+                                   v-bind:class="{checkedText: task.statusChecked}"
+                                   class="form-control text-task" type="text"
+                                   v-model.trim="task.label"
+                                   v-on:blur="editingTask(task, index)"
+                                   v-on:keydown.enter="$event.target.blur()"
+                                   @keyup.ctrl.enter.prevent.exact=""
+                                   v-on:change="editingTask(task, index)">{{task.label}}
+                           </textarea>
+                           <div class="autogrow-textarea-mirror form-control">{{task.label}}</div>
+                       </div>
+                       <div class="input-group-append">
+                           <button @click="removeCurrentTask(index)" class="btn btn-outline-primary remove-btn btn-view" type="button"><img
+                                   src="image/del.svg" alt=""></button>
+                       </div>
+                   </li>
+                   <hr>
+               </ul>
+
+           <ul class="list-group list-group-flush box-tasks">
+
+               <li class="task list-group-item"
+                   v-if=" task.statusChecked"
+                   v-for="(task, index) in todos"
+                   :key="task.id"
+                   v-bind:id="task.id">
+                   <div class="input-group-prepend">
+                       <div class="custom-control custom-checkbox">
+                           <input type="checkbox" checked class="checkbox custom-control-input" :id="task.id"  @change="toggleStatusChecked(task, index)">
+                           <label class="custom-control-label label-checkbox" :for="task.id" @click="toggleStatusChecked(task, index)"></label>
+                       </div>
+                   </div>
+                   <div class="parent-container-for-textarea">
+                       <textarea v-bind:class="{checkedText: task.statusChecked}" class="form-control text-task" type="text" v-model="task.label"></textarea>
+                       <div class="autogrow-textarea-mirror form-control">`{{task.label}} + ${' '}`</div>
+                   </div>
+                   <div class="input-group-append">
+                       <button @click="removeCurrentTask(index)" class="btn btn-outline-primary remove-btn btn-view" type="button"><img
+                               src="image/del.svg" alt=""></button>
+                   </div>
+               </li>
+           </ul>
+
+
+               <!--<ul class="list-group list-group-flush box-tasks">
+                   <h2 v-show="! active.length">No new tasks</h2>
+                   <li
+                           v-if="! task.statusChecked"
+                           v-for="(task, index) in todos"
+                           :key="task.id"
+                           class="list-group-item"
+                           v-bind:id="task.id"
+                           v-bind:class="{'view-checked-task': task.statusChecked}"
+
+                   >
+                       <div class="form-check task-view">
+
+                           <input class="form-check-input" type="checkbox" :id="task.id"
+                                  @change="toggleStatusChecked(task, index)">
+                           <label class="form-check-label" @dblclick="toggleStatusChecked(task, index)"
+                                  :for="task.id"></label>
+
+                           <div class="parent-container-for-textarea">
+                               <textarea class="form-control text-task" type="text">{{task.label}}</textarea>
+                               <div v-model="task.label" class="autogrow-textarea-mirror form-control">{{task.label}}</div>
+                           </div>
+
+                           <button class="btn btn-outline-primary remove-btn btn-view" type="button"
+                                   @click="removeCurrentTask(index)"><img src="image/del.svg" alt=""></button>
+                       </div>
+                   </li>
+                   <hr>
+               </ul>-->
+
+
+           <!-- <ul class="list-group list-group-flush box-tasks">
+                   <li
+                           v-if="task.statusChecked"
+                           v-for="(task, index) in todos"
+                           :key="task.id"
+                           class="list-group-item"
+                           v-bind:id="task.id"
+                           v-bind:class="{'view-checked-task': task.statusChecked}"
+
+                   >
+                       <div class="form-check task-view">
+                           <input class="form-check-input" type="checkbox" :id="task.id" checked
+                                  @change="toggleStatusChecked(task, index)">
+                           <label class="form-check-label" @click="toggleStatusChecked(task, index)"
+                                  :for="task.id"></label>
+
+                           <div class="parent-container-for-textarea"><textarea class="form-control text-task" type="text">{{task.label}}</textarea>
+                               <div class="autogrow-textarea-mirror form-control"></div>
+                           </div>
+
+
+                           <button class="btn btn-outline-primary remove-btn btn-view" type="button"
+                                   @click="removeCurrentTask(index)"><img src="image/del.svg" alt=""></button>
+                       </div>
+                   </li>
+               </ul>-->
+
+       </div>
+       </div>
+</div>
+<script src="localforage.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
