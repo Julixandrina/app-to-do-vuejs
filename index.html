@@ -93,67 +93,7 @@
                    </div>
                </li>
            </ul>
-
-
-               <!--<ul class="list-group list-group-flush box-tasks">
-                   <h2 v-show="! active.length">No new tasks</h2>
-                   <li
-                           v-if="! task.statusChecked"
-                           v-for="(task, index) in todos"
-                           :key="task.id"
-                           class="list-group-item"
-                           v-bind:id="task.id"
-                           v-bind:class="{'view-checked-task': task.statusChecked}"
-
-                   >
-                       <div class="form-check task-view">
-
-                           <input class="form-check-input" type="checkbox" :id="task.id"
-                                  @change="toggleStatusChecked(task, index)">
-                           <label class="form-check-label" @dblclick="toggleStatusChecked(task, index)"
-                                  :for="task.id"></label>
-
-                           <div class="parent-container-for-textarea">
-                               <textarea class="form-control text-task" type="text">{{task.label}}</textarea>
-                               <div v-model="task.label" class="autogrow-textarea-mirror form-control">{{task.label}}</div>
-                           </div>
-
-                           <button class="btn btn-outline-primary remove-btn btn-view" type="button"
-                                   @click="removeCurrentTask(index)"><img src="image/del.svg" alt=""></button>
-                       </div>
-                   </li>
-                   <hr>
-               </ul>-->
-
-
-           <!-- <ul class="list-group list-group-flush box-tasks">
-                   <li
-                           v-if="task.statusChecked"
-                           v-for="(task, index) in todos"
-                           :key="task.id"
-                           class="list-group-item"
-                           v-bind:id="task.id"
-                           v-bind:class="{'view-checked-task': task.statusChecked}"
-
-                   >
-                       <div class="form-check task-view">
-                           <input class="form-check-input" type="checkbox" :id="task.id" checked
-                                  @change="toggleStatusChecked(task, index)">
-                           <label class="form-check-label" @click="toggleStatusChecked(task, index)"
-                                  :for="task.id"></label>
-
-                           <div class="parent-container-for-textarea"><textarea class="form-control text-task" type="text">{{task.label}}</textarea>
-                               <div class="autogrow-textarea-mirror form-control"></div>
-                           </div>
-
-
-                           <button class="btn btn-outline-primary remove-btn btn-view" type="button"
-                                   @click="removeCurrentTask(index)"><img src="image/del.svg" alt=""></button>
-                       </div>
-                   </li>
-               </ul>-->
-
-       </div>
+        </div>
        </div>
 </div>
 <script src="localforage.min.js"></script>
